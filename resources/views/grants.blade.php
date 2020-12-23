@@ -126,7 +126,7 @@
             </div><!--top-right-->
 
             <div class="content">
-               <h1>Все работы <span>({{count($grants)}})</span></h1>
+               <h1>Все гранты <span>({{count($grants)}})</span></h1>
                @if (count($grants) > 0 )
                <div class="grants-container">
 
@@ -134,10 +134,12 @@
                @foreach ($grants as $grant)
                     <div class="grants">
                         <h2>{{$grant->name}}</h2>
-                        <p>Цена для приобретения {{$grant->price}}</p>
-                        <img src="{{$grant->photo}}" alt="{{$grant->name}}" width="100px" height="100px">
-                        <a class="link-details" href="grants/{{$grant->id}}">Детали работы</a>
-                        <button>Купить</button>
+                        <p>Статус гранта {{$grant->status}}</p>
+                        <p>Дата начала {{$grant->starts_at}}</p>
+                        <p>Дата окончания {{$grant->ends_at}}</p>
+                        <!-- <img src="{{$grant->photo}}" alt="{{$grant->name}}" width="100px" height="100px"> -->
+                        <a class="link-details" href="grant/{{$grant->id}}">Подробнее о гранте</a>
+                        <!-- <button>Участвовать</button> -->
                     </div>
                @endforeach
                     </div>

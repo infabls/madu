@@ -95,11 +95,11 @@
                 @include('includes.partials.messages')
 
                 <div class="title m-b-md" style="font-size: 50px;">
-                    Социальная платформа
+                    Платформа проведения грантов
                 </div><!--title-->
 
                 <div class="links">
-                    <a href="/works">Все работы</a>
+                    <a href="/grants">Все гранты</a>
                     <a href="/my-works">Мои работы</a>
                     <a href="/add-works">Добавить работу</a>
                     <a href="/my-orders">Мои заявки</a>

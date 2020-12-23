@@ -111,16 +111,19 @@
             <div class="content">
               <div class="grant_inner">
                 <div class="grant_inner-left">
-                    <h1>{{$grants->name}}</h1>
-                    <p>Стоимость лота {{$grants->price}} тг</p>
-                    <img src="{{$grants->photo}}" alt="{{$grants->name}}">
+                    <h1> Название {{$grants->name}}</h1>
+                    @if (count($orders) > 0)
+                        <p>Всего заявок - {{count($orders)}}</p>
+                    @endif
+                    <p>Статус гранта {{$grants->status}}</p>
+                    <p>Дата начала {{$grants->starts_at}}</p>
+                    <p>Дата окончания {{$grants->ends_at}}</p>
+                    <!-- <img src="{{$grants->photo}}" alt="{{$grants->name}}"> -->
                 </div>
                 <div class="grant_inner-right">
-                    @if (count($orders) > 0)
-                    <p>Всего заявок - {{count($orders)}}</p>
-                    @endif
-                    @if ($grants->status == 'on')
-                    <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('/grants/buy')}}">
+
+                    @if ($grants->status !== 'ended')
+                    <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('/grant/order/')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="box_detail booking">
                      <div class="price">
@@ -145,6 +148,12 @@
                        <div class="form-group">
                            <label for="email">Емейл</label>
                            <input  name="email" type="email" class="form-control" id="email" required="" placeholder="Ваш емейл">
+                       </div>
+                   </div>
+                   <div class="form-group" id="input-dates">
+                       <div class="form-group">
+                           <label for="fileupload">Файл заявления</label>
+                           <input  name="fileupload" type="file" class="form-control" id="fileupload" required="">
                        </div>
                    </div>
                    <button type="submit" class="add_top_30 btn_1 full-width purchase">Записаться</button>

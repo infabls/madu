@@ -32,6 +32,24 @@ Route::get('grant/{key}', function ($key) {
 	]);
 });
 
+// прием формы заявки на участие
+Route::post('grant/order/', function (Request $request) {
+	$order = new Orders;
+	// save file
+    $request->validate([
+            'fileupload' => 'required|file|mimes:doc,docx,pdf|max:2048',
+        ]);
+    $imageName = time().'.'.$request->fileupload->extension();  
+    $request->fileupload->move(public_path('works'), $imageName);
+	$order->worksId = $request->grantsId;
+	$order->name = '/works/' . $imageName;
+    // $order->name = $request->name;
+    $order->email = $request->email;
+    $order->phone = $request->phone;
+    $order->save();
+    return back()->with('status', "Работа с id $order->id была создана" );
+});
+
 // Switch between the included languages
 Route::get('lang/{lang}', [LocaleController::class, 'change'])->name('locale.change');
 

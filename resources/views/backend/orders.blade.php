@@ -14,7 +14,9 @@
                       <table class="table table-striped task-table">
                         <!-- Заголовок таблицы -->
                         <thead>
+                          <th>Id проекта</th>
                           <th>Имя</th>
+                          <th>Документ</th>
                           <th>Номер телефона</th>
                           <th>Емейл</th>
                           <th>Ссылка на работу</th>
@@ -25,11 +27,16 @@
                           @foreach ($orders as $order)
                             
                             <tr>
+                              <td class="table-text">
+                                <div><a href="/grant/{{ $order->worksId }}">{{ $order->worksId }}</a></div>
+                              </td> 
                               <!-- Имя клиента -->
                               <td class="table-text">
                                 <div>{{ $order->name }}</div>
                               </td> 
-
+                              <td class="table-text">
+                                <div><a target="_blank" href="{{ $order->name }}">Работа</a></div>
+                              </td> 
                               <td>
                                 <div><a href="tel:{{ $order->phone }}">{{ $order->phone }}</a></div>
                               </td>
