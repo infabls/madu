@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(AuthSeeder::class);
         $this->call(AnnouncementSeeder::class);
-        // $this->call(WorksSeeder::class);
-        // $this->call(OrdersSeeder::class);
+        $this->call(WorksSeeder::class);
+        $this->call(OrdersSeeder::class);
         $this->call(GrantsSeeder::class);
 
         Model::reguard();
