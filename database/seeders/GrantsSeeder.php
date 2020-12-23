@@ -25,8 +25,8 @@ class GrantsSeeder extends Seeder
             'id' => '1',
             'name' => 'Грант 1 в процессе проведения',
             'status' => 'started',
-            'starts_at' => now(),
-            'ends_at' => now()->subDays(30),
+            'starts_at' => date("2020-11-22 12:00:00"),
+            'ends_at' => date("2021-02-26 12:00:00"),
         ]);
         Grant::create([
             'id' => '2',
@@ -40,8 +40,8 @@ class GrantsSeeder extends Seeder
             'id' => '3',
             'name' => 'Грант 3 еще не начался',
             'status' => 'notstarted',
-            'starts_at' => date("2020-12-24 12:00:00"),
-            'ends_at' => date("2021-01-24 12:00:00"),
+            'starts_at' => date("2021-01-24 12:00:00"),
+            'ends_at' => date("2021-04-24 12:00:00"),
         ]);
 
         $this->enableForeignKeys();
