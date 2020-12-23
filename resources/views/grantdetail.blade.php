@@ -21,22 +21,7 @@
                 height: 100vh;
                 margin: 0;
             }
-                h1, .h1{
-                    margin-bottom:50px;
-                }
-                button{
-                    border: none;
-                    background: #36d2ea;
-                    color:#fff;
-                    text-transform:uppercase;
-                    font-weight:bold;
-                    margin-top:10px;
-                    margin-bottom:10px;
-                    padding: 10px;
-                }
-                button:hover{
-                    background: #2894a5;
-                }
+
             .full-height {
                 height: 100vh;
             }
@@ -74,31 +59,29 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
             .content{
                 max-width: 920px;
                 width: 100%;
             }
-            .works-container{
-              display: -webkit-flex;
-              display: -ms-flex;
-              display: flex;
-              justify-content: space-around;
+            .m-b-md {
+                margin-bottom: 30px;
             }
-            .works{
+            .grant_inner{
                 display:flex;
-                flex-direction:column;
-                align-items:center;
-                border:1px solid #000;
-                border-radius:10px;
-                padding: 10px;
-                box-shadow: 0 0 10px rgba(0,0,0,0.5);
+                justify-content:space-around;
             }
-            .link-details{
-                margin: 10px;
+            button{
+                border: none;
+                background: #36d2ea;
+                color:#fff;
+                text-transform:uppercase;
+                font-weight:bold;
+                margin-top:10px;
+                margin-bottom:10px;
+                padding: 10px;
+            }
+            button:hover{
+                background: #2894a5;
             }
         </style>
         @stack('after-styles')
@@ -126,26 +109,57 @@
             </div><!--top-right-->
 
             <div class="content">
-               <h1>Все работы <span>({{count($works)}})</span></h1>
-               @if (count($works) > 0 )
-               <div class="works-container">
+              <div class="grant_inner">
+                <div class="grant_inner-left">
+                    <h1>{{$grants->name}}</h1>
+                    <p>Стоимость лота {{$grants->price}} тг</p>
+                    <img src="{{$grants->photo}}" alt="{{$grants->name}}">
+                </div>
+                <div class="grant_inner-right">
+                    @if (count($orders) > 0)
+                    <p>Всего заявок - {{count($orders)}}</p>
+                    @endif
+                    @if ($grants->status == 'on')
+                    <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('/grants/buy')}}">
+                    @csrf
+                    <div class="box_detail booking">
+                     <div class="price">
+                         <div class="form-group">
+                             <input  value="{{$grants->id}}" type="text" id="grantsId" name="grantsId" class="form-control" required="" hidden="">
+                         </div>
+                         <span>Оставить заявку</span>
+                     </div>
+                     <div class="form-group" id="input-dates">
+                         <div class="form-group">
+                           <label for="exampleInputEmail1">Имя</label>
+                           <input  name="name" type="text" class="form-control" id="name" required="" placeholder="Имя Фамилия">
+                       </div>
+                   </div>
+                   <div class="form-group" id="input-dates">
+                       <div class="form-group">
+                           <label for="exampleInputEmail1">Номер телефона</label>
+                           <input  name="phone" type="tel" class="form-control" id="phone" required="" placeholder="Введите ваш номер">
+                       </div>
+                   </div>
+                   <div class="form-group" id="input-dates">
+                       <div class="form-group">
+                           <label for="email">Емейл</label>
+                           <input  name="email" type="email" class="form-control" id="email" required="" placeholder="Ваш емейл">
+                       </div>
+                   </div>
+                   <button type="submit" class="add_top_30 btn_1 full-width purchase">Записаться</button>
+                   <div class="text-center"><small>Подача заявки бесплатна!</small></div>
+               </div>
+           </form>
 
+                    @else
+                    <p>Недоступен для участия</p>
+                    @endif
+                </div>
 
-               @foreach ($works as $work)
-                    <div class="works">
-                        <h2>{{$work->name}}</h2>
-                        <p>Цена для приобретения {{$work->price}}</p>
-                        <img src="{{$work->photo}}" alt="{{$work->name}}" width="100px" height="100px">
-                        <a class="link-details" href="works/{{$work->id}}">Детали работы</a>
-                        <button>Купить</button>
-                    </div>
-               @endforeach
-                    </div>
-               @else
-               <p>Недоступен для участия</p>
-               @endif
 
             </div><!--content-->
+              </div>
         </div><!--app-->
 
         @stack('before-scripts')

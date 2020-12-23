@@ -21,7 +21,22 @@
                 height: 100vh;
                 margin: 0;
             }
-
+                h1, .h1{
+                    margin-bottom:50px;
+                }
+                button{
+                    border: none;
+                    background: #36d2ea;
+                    color:#fff;
+                    text-transform:uppercase;
+                    font-weight:bold;
+                    margin-top:10px;
+                    margin-bottom:10px;
+                    padding: 10px;
+                }
+                button:hover{
+                    background: #2894a5;
+                }
             .full-height {
                 height: 100vh;
             }
@@ -59,29 +74,31 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
+
+            .m-b-md {
+                margin-bottom: 30px;
+            }
             .content{
                 max-width: 920px;
                 width: 100%;
             }
-            .m-b-md {
-                margin-bottom: 30px;
+            .grants-container{
+              display: -webkit-flex;
+              display: -ms-flex;
+              display: flex;
+              justify-content: space-around;
             }
-            .work_inner{
+            .grants{
                 display:flex;
-                justify-content:space-around;
-            }
-            button{
-                border: none;
-                background: #36d2ea;
-                color:#fff;
-                text-transform:uppercase;
-                font-weight:bold;
-                margin-top:10px;
-                margin-bottom:10px;
+                flex-direction:column;
+                align-items:center;
+                border:1px solid #000;
+                border-radius:10px;
                 padding: 10px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.5);
             }
-            button:hover{
-                background: #2894a5;
+            .link-details{
+                margin: 10px;
             }
         </style>
         @stack('after-styles')
@@ -109,57 +126,26 @@
             </div><!--top-right-->
 
             <div class="content">
-              <div class="work_inner">
-                <div class="work_inner-left">
-                    <h1>{{$works->name}}</h1>
-                    <p>Стоимость лота {{$works->price}} тг</p>
-                    <img src="{{$works->photo}}" alt="{{$works->name}}">
-                </div>
-                <div class="work_inner-right">
-                    @if (count($orders) > 0)
-                    <p>Всего заявок - {{count($orders)}}</p>
-                    @endif
-                    @if ($works->status == 'on')
-                    <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('/works/buy')}}">
-                    @csrf
-                    <div class="box_detail booking">
-                     <div class="price">
-                         <div class="form-group">
-                             <input  value="{{$works->id}}" type="text" id="worksId" name="worksId" class="form-control" required="" hidden="">
-                         </div>
-                         <span>Оставить заявку</span>
-                     </div>
-                     <div class="form-group" id="input-dates">
-                         <div class="form-group">
-                           <label for="exampleInputEmail1">Имя</label>
-                           <input  name="name" type="text" class="form-control" id="name" required="" placeholder="Имя Фамилия">
-                       </div>
-                   </div>
-                   <div class="form-group" id="input-dates">
-                       <div class="form-group">
-                           <label for="exampleInputEmail1">Номер телефона</label>
-                           <input  name="phone" type="tel" class="form-control" id="phone" required="" placeholder="Введите ваш номер">
-                       </div>
-                   </div>
-                   <div class="form-group" id="input-dates">
-                       <div class="form-group">
-                           <label for="email">Емейл</label>
-                           <input  name="email" type="email" class="form-control" id="email" required="" placeholder="Ваш емейл">
-                       </div>
-                   </div>
-                   <button type="submit" class="add_top_30 btn_1 full-width purchase">Записаться</button>
-                   <div class="text-center"><small>Подача заявки бесплатна!</small></div>
-               </div>
-           </form>
+               <h1>Все работы <span>({{count($grants)}})</span></h1>
+               @if (count($grants) > 0 )
+               <div class="grants-container">
 
-                    @else
-                    <p>Недоступен для участия</p>
-                    @endif
-                </div>
 
+               @foreach ($grants as $grant)
+                    <div class="grants">
+                        <h2>{{$grant->name}}</h2>
+                        <p>Цена для приобретения {{$grant->price}}</p>
+                        <img src="{{$grant->photo}}" alt="{{$grant->name}}" width="100px" height="100px">
+                        <a class="link-details" href="grants/{{$grant->id}}">Детали работы</a>
+                        <button>Купить</button>
+                    </div>
+               @endforeach
+                    </div>
+               @else
+               <p>Недоступен для участия</p>
+               @endif
 
             </div><!--content-->
-              </div>
         </div><!--app-->
 
         @stack('before-scripts')

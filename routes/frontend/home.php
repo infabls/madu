@@ -3,7 +3,7 @@
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\TermsController;
 use Tabuna\Breadcrumbs\Trail;
-use App\Models\Works;
+use App\Models\Grant;
 use App\Models\Orders;
 use Illuminate\Http\Request; 
 

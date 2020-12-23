@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LocaleController;
 use App\Models\Works;
+use App\Models\Grant;
 use App\Models\Orders;
 use Illuminate\Http\Request; 
 
@@ -11,38 +12,25 @@ use Illuminate\Http\Request;
  * Routes that are used between both frontend and backend.
  */
 
+// страница всех грантов
+Route::get('grants', function () {
 
-// страница конкретной работы
-Route::get('works/{key}', function ($key) {
-	$works = Works::where('id', '=', $key)->firstOrFail();
+	$grant = grant::where('status', '!=', 'ended')->paginate();
+	return view('grants',[ 
+	'grants' => $grant
+	]);
+});
+
+
+// страница конкретного гранта
+Route::get('grant/{key}', function ($key) {
+	$grant = Grant::where('id', '=', $key)->firstOrFail();
 	$orders = Orders::where('worksId', '=', $key)->get();
-	return view('worksdetail',[ 
-	'works' => $works,
+	return view('grantdetail',[ 
+	'grants' => $grant,
 	'orders' => $orders,
 	]);
 });
-
-// все работы
-Route::get('works', function () {
-	$works = Works::where('status', '=', 'on')->paginate();
-	return view('works',[ 
-	'works' => $works
-	]);
-});
-
-
-// прием формы заявки на покупку 
-Route::post('works/buy', function (Request $request) {
-	$order = new Orders;
-	$order->worksId = $request->worksId;
-    $order->name = $request->name;
-    $order->email = $request->email;
-    $order->phone = $request->phone;
-    $order->save();
-    return back()->with('status', 'Ваша заявка была отправлена');
-});
-
-
 
 // Switch between the included languages
 Route::get('lang/{lang}', [LocaleController::class, 'change'])->name('locale.change');
